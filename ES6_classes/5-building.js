@@ -13,8 +13,9 @@ export default class Building {
   }
   
   evacuationWarningMessage() {
+    // using new.target will point to subclass that uses the method
     if (new.target == Building) {
-      throw Error('Class extending Building must override evacuationWarningMessage');
+      throw new Error('Class extending Building must override evacuationWarningMessage');
     };
   }
 }
