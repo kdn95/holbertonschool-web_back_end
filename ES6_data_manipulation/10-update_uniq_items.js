@@ -1,7 +1,7 @@
 export default function updateUniqueItems(item) {
   // if item is not even a Map, throw error
-  if (!item instanceof Map) {
-    throw new Error('Cannot process');
+  if (!(item instanceof Map)) {
+    throw new TypeError('Cannot process');
   }
   // getting all values in item map
   const theList = [...item];

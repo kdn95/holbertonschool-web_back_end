@@ -1,6 +1,6 @@
 export default function cleanSet(set, startString) {
   // returns a string of all the set values that start with a specific string
-  if (startString.length === 0) {
+  if (!startString.length) {
     return '';
   }
   // declare tempArray
