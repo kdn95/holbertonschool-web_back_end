@@ -39,16 +39,24 @@ class Server:
 
         if start_ind > len(the_data):
             return []
-        
+
         return page_info
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
-        the_data = self.dataset()
-        
+        # open csv file and make it readable into a list
+        with open(self.DATA_FILE) as f:
+            reader = csv.reader(f)
+            the_data = list(reader)
+
+        total_pages = math.ceil((len(the_data) - 1) / page_size)
+
+
+        # the_data = self.__dataset
+
         nxt_page = page + 1
-        if nxt_page > (len(the_data) - 1):
+        if nxt_page > total_pages:
             nxt_page = None
-        
+
         prv_page = page - 1
         if prv_page <= 0:
             prv_page = None
@@ -57,9 +65,9 @@ class Server:
             "page_size": page_size,
             "page": page,
             "data": self.get_page(page, page_size),
-            "next_page": page + 1,
-            "previous_page": page - 1,
-            "total_pages": math.ceil((len(the_data) - 1) / page_size)
+            "next_page": nxt_page,
+            "previous_page": prv_page,
+            "total_pages": total_pages
         }
 
         return the_dict

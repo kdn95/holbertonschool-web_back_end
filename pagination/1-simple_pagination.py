@@ -33,11 +33,13 @@ class Server:
         # extract start and end index from index range funct
         start_ind, end_ind = index_range(page, page_size)
         # grab the entire dataset
-        the_data = self.dataset()
+        with open(self.DATA_FILE) as f:
+            reader = csv.reader(f)
+            the_data = list(reader)
         # page_info is based on start & end index within the dataset
         page_info = the_data[start_ind:end_ind]
 
         if start_ind > len(the_data):
             return []
-        
+
         return page_info
