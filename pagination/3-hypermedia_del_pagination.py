@@ -8,6 +8,8 @@ import math
 from typing import List, Dict
 
 index_range = __import__('0-simple_helper_function').index_range
+# get_hyper = __import__('2-hypermedia_pagination').get_hyper
+
 
 
 class Server:
@@ -42,19 +44,35 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-            assert index is not None and page_size > 0
+            """ return dataset based on index and page_size """
 
+            # with open(self.DATA_FILE) as f:
+            #     reader = csv.reader(f)
+            #     indexed_data = list(reader)
+# 
             indexed_data = self.indexed_dataset()
 
-            if index == 0 and page_size == 10:
-                return indexed_data[:10]
+            assert isinstance(index, int) and index >= 0 and index < len(indexed_data)
 
+            nxt_index = index + page_size
+
+            spec_data = []
+            i = 0
+            # loop new list to see if smaller than page_size
+            while len(spec_data) < page_size:
+                # move to next page closer to page_size til end of page/last index of page
+                the_index = index + i
+                # add each index found in dataset into new list
+                if the_index in indexed_data:
+                    spec_data.append(indexed_data[the_index])
+                # increment within loop
+                i = i + 1
             
             a_dict = {
                  "index": index,
-                 "next_index": index + 1,
+                 "next_index": nxt_index,
                  "page_size": page_size,
-                 "data": indexed_data
+                 "data": spec_data
             }
 
             return a_dict
