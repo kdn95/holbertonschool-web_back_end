@@ -1,1 +1,2 @@
+// to delete document with fields and their values
 db.school.deleteOne({name: "Holberton School"})
