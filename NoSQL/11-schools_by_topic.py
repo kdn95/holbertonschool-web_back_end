@@ -3,6 +3,7 @@
 
 
 def schools_by_topic(mongo_collection, topic: str):
+    """ same thing I mentioned above"""
     # retrieve all documents from collection
     entire_data = mongo_collection.find()
     # empty list
