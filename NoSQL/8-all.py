@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+""" list all docs """
 from pymongo import MongoClient
 
 
