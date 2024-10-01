@@ -1,4 +1,5 @@
 const { spawn } = require('child_process');
+
 const child = spawn('node', ['1-stdin.js']);
 
 // Write to the child's stdin

@@ -8,9 +8,11 @@ const http = require("http")
 
 // create server
 const app = http.createServer((req, res) => {
-  // send response
+  // send response 'OK' status code 200
   res.writeHead(200);
+  // send response text at the end
   res.end("Hello Holberton School!")
+  // make sure that createServer function also listens to port 1245
 }).listen(1245);
 
 module.exports = app;

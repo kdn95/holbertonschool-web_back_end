@@ -8,6 +8,7 @@
 // import http & url module
 const http = require("http")
 var url = require("url")
+const fs = require("fs")
 // import function from proj. 3
 const countStudents = require('./3-read_file_async');
 // the db file from command-line arg
