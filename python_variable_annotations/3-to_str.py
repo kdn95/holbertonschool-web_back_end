@@ -4,4 +4,5 @@
 
 
 def to_str(n: float) -> str:
+    """Python add function with annotations"""
     return str(n)

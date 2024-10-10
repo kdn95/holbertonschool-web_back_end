@@ -5,4 +5,5 @@ import math
 
 
 def floor(n: float) -> int:
+    """Python add function with annotations"""
     return math.floor(n)

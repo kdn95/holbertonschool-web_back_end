@@ -8,4 +8,5 @@ from typing import List
 
 
 def sum_list(input_list: List[float]) -> float:
+    """Python list elem summing function with annotations"""
     return sum(input_list)
