@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 Import wait_random from the previous python file that you’ve written and
 write an async routine called wait_n that takes in 2 int arguments
@@ -15,7 +15,10 @@ import asyncio
 
 wait_random = __import__('0-basic_async_syntax').wait_random
 
+
 async def wait_n(n: int, max_delay: int = 10) -> List[float]:
+    """calls wait_random n number of times"""
+
     delay = []
     things = []
 

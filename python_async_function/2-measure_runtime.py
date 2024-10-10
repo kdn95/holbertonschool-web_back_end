@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 From the previous file, import wait_n into 2-measure_runtime.py.
 
@@ -14,12 +14,14 @@ import asyncio
 wait_n = __import__('1-concurrent_coroutines').wait_n
 
 
-
 def measure_time(n: int, max_delay: int = 10) -> float:
+    """returns average execution time per function call"""
+
     start_time = time.perf_counter()
     asyncio.run(wait_n(n, max_delay))
     end_time = time.perf_counter()
 
     total_dur = end_time - start_time
     avg_time = total_dur / n
+
     return avg_time
