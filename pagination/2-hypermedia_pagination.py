@@ -1,73 +1,80 @@
 #!/usr/bin/env python3
 import csv
 import math
-from typing import List
+from typing import List, Dict
+
 
 index_range = __import__('0-simple_helper_function').index_range
 
 
 class Server:
-    """Server class to paginate a database of popular baby names.
-    """
+    """Server class to paginate a database of popular baby names."""
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        # Initialize dataset as None so it can be loaded only when required
         self.__dataset = None
 
     def dataset(self) -> List[List]:
-        """Cached dataset
-        """
+        """Cached dataset."""
+        # Check if the dataset is already loaded and cache it for future use
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
-            self.__dataset = dataset[1:]
+            self.__dataset = dataset[1:]  # Skip header row
 
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """ return paginated dataset """
-        # use assert to check if page & page_size is int and > 0
+        # Use assert to check if page & page_size are int and > 0
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
-        # extract start and end index from index range funct
+
+        # Extract start and end index from index_range function
         start_ind, end_ind = index_range(page, page_size)
-        # grab the entire dataset
-        the_data = self.dataset()
-        # page_info is based on start & end index within the dataset
-        page_info = the_data[start_ind:end_ind]
 
-        if start_ind > len(the_data):
-            return []
-
-        return page_info
-
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
-        # open csv file and make it readable into a list
+        # Read the dataset (CSV) and extract relevant
+        # data based on start and end indices
+        data = []
         with open(self.DATA_FILE) as f:
             reader = csv.reader(f)
-            the_data = list(reader)
+            rows = list(reader)
 
-        total_pages = math.ceil((len(the_data) - 1) / page_size)
+            for i in range(end_ind - start_ind):
+                # Skip header row
+                wanted_index = start_ind + i + 1
+                if wanted_index >= len(rows):
+                    # Return empty list if index exceeds available rows
+                    return []
+                data.append(rows[wanted_index])
 
+        return data
 
-        # the_data = self.__dataset
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
+        """Return dict with metadata to create a hyperlink."""
+        # Open CSV file and read all rows
+        with open(self.DATA_FILE) as f:
+            reader = csv.reader(f)
+            rows = list(reader)
 
-        nxt_page = page + 1
-        if nxt_page > total_pages:
-            nxt_page = None
+        # Calculate total pages required based on page size
+        total_rows = len(rows) - 1  # Subtract header
+        total_pages = math.ceil(total_rows / page_size)
 
-        prv_page = page - 1
-        if prv_page <= 0:
-            prv_page = None
+        # Determine the next page number
+        next_page = page + 1 if page < total_pages else None
 
-        the_dict = {
-            "page_size": page_size,
-            "page": page,
-            "data": self.get_page(page, page_size),
-            "next_page": nxt_page,
-            "previous_page": prv_page,
-            "total_pages": total_pages
+        # Determine the previous page number
+        prev_page = page - 1 if page > 1 else None
+
+        # Return the dictionary with pagination metadata
+        return {
+            'page_size': page_size,
+            'page': page,
+            'data': self.get_page(page, page_size),
+            'next_page': next_page,
+            'prev_page': prev_page,
+            'total_pages': total_pages
         }
-
-        return the_dict
