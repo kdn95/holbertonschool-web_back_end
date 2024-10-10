@@ -1,5 +1,5 @@
-#!/usr/bin/python3
-# Write a type-annotated function floor which takes a float n as argument and returns the floor of the float
+#!/usr/bin/env python3
+"""Module 2 for math int """
 
 import math
 

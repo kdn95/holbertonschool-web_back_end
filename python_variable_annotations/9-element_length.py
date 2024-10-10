@@ -1,4 +1,8 @@
-#!/usr/python3
+#!/usr/bin/env python3
+
+"""
+Import data type annotations to return iterable
+"""
 
 from typing import Tuple, Iterable, List, Sequence
 

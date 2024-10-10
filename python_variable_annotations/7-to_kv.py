@@ -1,4 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+"""
+return float including type annotations
+"""
 
 from typing import Union, Tuple
 
