@@ -1,39 +1,56 @@
 const http = require('http');
-const url = require('url');
+const fs = require('fs');
 
-const countStudents = require('./3-read_file_async'); // Import countStudents
+const host = 'localhost';
+const port = 1245;
 
-const theFile = process.argv[2]; // Database file from command-line argument
+const filename = process.argv[2];
 
-const app = http.createServer(async (req, res) => {
-  const parsedUrl = url.parse(req.url, true);
+async function requestListener(req, res) {
+  switch (req.url) {
+    case '/students':
+      res.writeHead(200);
 
-  // Set header for plain text response
-  res.setHeader('Content-Type', 'text/plain');
+      try {
+        res.write('This is the list of our students\n');
 
-  // Handle root ("/") route
-  if (parsedUrl.pathname === '/') {
-    res.write('Hello Holberton School!');
-    return res.end(); // End response after writing
+        const data = await fs.readFileSync(filename, 'utf-8');
+        const rows = data.split('\n').slice(1);
+
+        const studentsCS = [];
+        const studentsSWE = [];
+
+        for (const row of rows) {
+          if (row.trim() !== '') {
+            const data = row.split(',');
+
+            if (data[3] === 'CS') { // hardcode
+              studentsCS.push(data[0]);
+            }
+
+            if (data[3] === 'SWE') { // hardcode
+              studentsSWE.push(data[0]);
+            }
+          }
+        }
+
+        res.write(`Number of students: ${studentsCS.length + studentsSWE.length}\n`);
+        res.write(`Number of students in CS: ${studentsCS.length}. List: ${studentsCS.join(', ')}\n`);
+        res.end(`Number of students in SWE: ${studentsSWE.length}. List: ${studentsSWE.join(', ')}`);
+      } catch (error) {
+        res.end('Cannot load the database');
+      }
+
+      break;
+    default:
+      res.writeHead(200);
+      res.end('Hello Holberton School!');
   }
+}
 
-  // Handle "/students" route
-  if (parsedUrl.pathname === '/students') {
-    res.write('This is the list of our students\n'); // Add newline after the message
-
-    try {
-      // Call the countStudents function and pass the result to the response
-      await countStudents(theFile);
-    } catch (error) {
-      // Handle errors (e.g., if the database can't be loaded)
-      res.write(error.message);
-    }
-
-    return res.end(); // End response after writing
-  }
-
-  // If neither route matches, end the response
-  res.end();
-}).listen(1245); // HTTP server listening on port 1245
+const app = http.createServer(requestListener);
+app.listen(port, host, () => {
+  console.log(`Server is running on http://${host}:${port}`);
+});
 
 module.exports = app;
