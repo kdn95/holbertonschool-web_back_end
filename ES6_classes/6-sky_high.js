@@ -1,6 +1,6 @@
 import Building from './5-building.js';
 
-class SkyHighBuilding extends Building {
+class skyHighBuilding extends Building {
   constructor(sqft, floors) {
     super(sqft)
     this._floors = floors
@@ -19,4 +19,4 @@ class SkyHighBuilding extends Building {
   };
 }
 
-export default SkyHighBuilding
+export default skyHighBuilding;
