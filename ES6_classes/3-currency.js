@@ -10,7 +10,7 @@ export default class Currency {
 
   set code(TheCode) {
     if ((typeof TheCode) !== 'string') {
-      throw new TypeError("Code must be a string/symbol")
+      throw new TypeError('Code must be a string/symbol');
     }
     this._code = TheCode;
   }
@@ -21,11 +21,12 @@ export default class Currency {
 
   set name(NameCurrency) {
     if ((typeof NameCurrency) !== 'string') {
-      throw new TypeError("Name must be a string");
+      throw new TypeError('Name must be a string');
     }
     this._name = NameCurrency;
   }
 // no parameters but use "this." to indicate self defined properties
+
   displayFullCurrency() {
     return `${this._name} (${this._code})`;
   }

@@ -14,7 +14,7 @@ export default class Airport {
     return `${this.constructor.name} [${this._code}] { _name: '${this._name}', _code: '${this._code}'}`;
   }
   // override toString() funct.
-  
+
   toString() {
     return `[object ${this._code}]`;
   }
