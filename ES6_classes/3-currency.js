@@ -25,7 +25,7 @@ export default class Currency {
     }
     this._name = NameCurrency;
   }
-// no parameters but use "this." to indicate self defined properties
+  // no parameters but use "this." to indicate self defined properties
 
   displayFullCurrency() {
     return `${this._name} (${this._code})`;
