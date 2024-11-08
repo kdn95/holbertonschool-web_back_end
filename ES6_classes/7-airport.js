@@ -6,7 +6,6 @@ export default class Airport {
   constructor(name, code) {
     this._name = name;
     this._code = code;
-    
   }
   // have no idea why util.inspect.custom is used (did not learn) 15/07/2024
 
@@ -16,6 +15,7 @@ export default class Airport {
   // override toString() funct.
 
   toString() {
-    return `[object ${this._code}]`;
+    const to = typeof this;
+    return `[${to} ${this._code}]`;
   }
 }
