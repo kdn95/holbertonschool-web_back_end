@@ -4,7 +4,7 @@ export default function cleanSet(set, startString) {
     return '';
   }
   // declare tempArray
-  const tempArray = []
+  const tempArray = [];
   // for every word in spread of set
   for (const word of [...set]) {
     // check if word starts with 'bon'

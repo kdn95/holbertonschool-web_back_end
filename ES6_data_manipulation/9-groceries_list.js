@@ -1,6 +1,6 @@
-export default function groceriesList(name, quantity) {
+export default function groceriesList() {
   const theGroceries = new Map();
-  
+
   theGroceries.set('Apples', 10);
   theGroceries.set('Tomatoes', 10);
   theGroceries.set('Pasta', 1);
@@ -8,4 +8,4 @@ export default function groceriesList(name, quantity) {
   theGroceries.set('Banana', 5);
 
   return theGroceries;
- }
+}

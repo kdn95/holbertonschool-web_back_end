@@ -1,23 +1,22 @@
-export default function updateStudentGradeByCity(students, city, NewGrades){
+export default function updateStudentGradeByCity(list, city, newGrades) {
   // filter out students that are in args city
-  const specCity = students.filter((student) => student.location === city);
+  const cityStudents = list.filter((student) => student.location === city);
   // Checking each entry and apply mapping
-  const changeGrade = specCity.map((student) => {
+  const gradedStudents = cityStudents.map((student) => {
     // Filter NewGrades and find where the studentId matches to SpecCity student.id
-    const updatedGrades = NewGrades.filter((grade) => grade.studentId === student.id);
+    const userGrades = newGrades.filter((grade) => grade.studentId === student.id);
     // create new reference data
-    // const newStudent = student; no needed
     // if updatedGrades exist or more than nothing
-    if (updatedGrades.length > 0) {
+    const newStudent = student;
+    if (userGrades.length > 0) {
       // mutate the updated-NewGrades array where grade value is, and replace in student.grade value
       // where student is the filtered students based on location
-      student.grade = updatedGrades[0].grade;
+      newStudent.grade = userGrades[0].grade;
+    } else {
+      newStudent.grade = 'N/A';
     }
-    else {
-      student.grade = 'N/A';
-    }
-    return student;
+    return newStudent;
   });
 
-  return changeGrade;
+  return gradedStudents;
 }
