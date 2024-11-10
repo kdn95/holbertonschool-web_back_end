@@ -3,7 +3,7 @@ import uploadPhoto from './5-photo-reject';
 
 export default function handleProfileSignup(firstName, lastName, fileName) {
   const user = signUpUser(firstName, lastName)
-  //expected input is to be always resolved hence moved to then()
+  // expected input is to be always resolved hence moved to then()
     .then((value) => ({
       status: 'fulfilled',
       value,
